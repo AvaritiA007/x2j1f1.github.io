@@ -1,9 +1,19 @@
+import os
+import sys
 import time
 from collections import defaultdict
 
 import crypten
 from crypten.config import cfg
 from models import ViT
+
+# 2PC setting
+rank = sys.argv[1]
+os.environ["RANK"] = str(rank)
+os.environ["WORLD_SIZE"] = str(2)
+os.environ["MASTER_ADDR"] = "127.0.0.1"
+os.environ["MASTER_PORT"] = "29500"
+os.environ["RENDEZVOUS"] = "env://"
 
 # 设置通信后端 
 cfg.communicator.verbose = True
